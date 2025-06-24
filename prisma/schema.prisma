@@ -1,0 +1,51 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model user {
+  id            String    @id @default(auto()) @map("_id") @db.ObjectId
+  name          String?
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  created_at    DateTime  @default(now())
+
+  accounts account[] @relation("user_accounts")
+  bots     bot[]     @relation("user_bots")
+}
+
+model account {
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  userId            String   @map("user_id") @db.ObjectId
+  scope             String?
+  type              String?
+  token_type        String?
+  id_token          String?
+  provider          String
+  providerAccountId String
+  refresh_token     String?  @db.String
+  access_token      String?  @db.String
+  expires_at        Int?
+  createdAt         DateTime @default(now())
+  user              user     @relation("user_accounts", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model bot {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  bio        String   @db.String
+  created_at DateTime @default(now())
+
+  user_id String @db.ObjectId
+  user    user   @relation("user_bots", fields: [user_id], references: [id], onDelete: Cascade)
+
+  @@unique([name, user_id])
+}
