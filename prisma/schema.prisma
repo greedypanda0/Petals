@@ -39,10 +39,12 @@ model account {
 }
 
 model bot {
-  id         String   @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  bio        String   @db.String
-  created_at DateTime @default(now())
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  name           String
+  bio            String   @db.String
+  image          String   @db.String
+  created_at     DateTime @default(now())
+  system_message String   @db.String()
 
   user_id String @db.ObjectId
   user    user   @relation("user_bots", fields: [user_id], references: [id], onDelete: Cascade)

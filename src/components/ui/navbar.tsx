@@ -23,7 +23,7 @@ export default function Navbar() {
       animate={{ y: 0, opacity: 1 }}
       exit={{ y: 100, opacity: 0 }}
       transition={{ type: "spring", stiffness: 250, damping: 25 }}
-      className="fixed bottom-0 left-0 w-full h-16 flex items-center justify-around z-50"
+      className="w-full h-16 flex items-center justify-around z-50"
     >
       {bars.map((item, idx) => {
         const isActive =

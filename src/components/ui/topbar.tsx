@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Flower2 } from "lucide-react"; 
+import Image from "next/image";
 
 export default function Topbar() {
   return (
@@ -13,7 +14,7 @@ export default function Topbar() {
       transition={{ type: "spring", stiffness: 200, damping: 20 }}
       className="h-12 w-full flex items-center gap-2 px-4"
     >
-      <Flower2 className="h-5 w-5" />
+      <Image src="/logo.png" alt="logo" width={20} height={20} />
       <h1 className="text-sm font-semibold tracking-wide">Petals</h1>
     </motion.div>
   );

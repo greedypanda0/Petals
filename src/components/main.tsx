@@ -11,14 +11,13 @@ export default function Main({
   className,
 }: Readonly<{ children?: React.ReactNode; className?: string }>) {
   return (
-    <main className={`flex flex-col min-h-screen relative ${className ?? ""}`}>
+    <main className={`relative flex flex-col w-full h-full ${className ?? ""}`}>
       <Topbar />
-      <div className="flex-1 overflow-hidden">
+      <div className="w-full h-full overflow-hidden flex flex-col">
         {children || ""}
-        <AuthDialog />
       </div>
-
-        <Navbar />
+      <AuthDialog />
+      <Navbar />
     </main>
   );
 }

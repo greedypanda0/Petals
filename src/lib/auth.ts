@@ -15,20 +15,18 @@ const handler = NextAuth({
     }),
     Github({
       clientId: process.env.GITHUB_CLIENT_ID!,
-      clientSecret: process.env.GITHUB_CLIENT_SECRET!,
-      authorization: {
-        params: {
-          scope: "read:user user:email",
-        },
-      },
+      clientSecret: process.env.GITHUB_CLIENT_SECRET!
     }),
     Credentials({
       name: "credentials",
       credentials: {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
+        name: { label: "Name", type: "text", required: false}
       },
       async authorize(credentials) {
+        console.log(credentials);
+        
         const { email, password } = credentials as {
           email: string;
           password: string;

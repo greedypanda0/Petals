@@ -14,18 +14,24 @@ import { Label } from "@/components/ui/label";
 import { useAuthStore } from "@/stores/authModal";
 import { FaGithub, FaGoogle } from "react-icons/fa";
 import { signIn } from "next-auth/react";
+import { toast } from "sonner";
 
 export default function AuthDialog() {
   const { isAuthOpen, setAuth } = useAuthStore();
   const [variant, setVariant] = useState<"login" | "register">("login");
   const [form, setForm] = useState({ name: "", email: "", password: "" });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async(e: React.FormEvent) => {
     e.preventDefault();
-    if (variant === "register") {
-      console.log("Registering:", form);
-    } else {
-      console.log("Logging in:", form);
+    const res = await signIn("credentials", {
+      ...form,
+      redirect: false,
+    })
+
+    if(res.error) {
+      return toast.error(`Error while signing up!`, {
+        description: res.error
+      })
     }
   };
 
