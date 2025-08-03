@@ -1,0 +1,81 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model user {
+  id            String    @id @default(uuid())
+  name          String?   @unique
+  email         String?   @unique
+  emailVerified DateTime?
+  image         String?
+  password      String?
+  createdAt     DateTime  @default(now())
+
+  accounts account[] @relation("userAccounts")
+  bots     bot[]     @relation("userBots")
+  chats    chat[]    @relation("userChats")
+}
+
+model account {
+  id                String   @id @default(uuid())
+  userId            String
+  scope             String?
+  type              String?
+  token_type        String?
+  id_token          String?
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  createdAt         DateTime @default(now())
+
+  user user @relation("userAccounts", fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model bot {
+  id            String   @id @default(uuid())
+  name          String   @unique
+  bio           String
+  image         String
+  createdAt     DateTime @default(now())
+  systemMessage String
+
+  userId String
+  user   user   @relation("userBots", fields: [userId], references: [id], onDelete: Cascade)
+
+  chats chat[] @relation("botChats")
+
+  @@unique([name, userId])
+}
+
+model chat {
+  id String @id @default(uuid())
+
+  botId String
+  bot   bot    @relation("botChats", fields: [botId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   user   @relation("userChats", fields: [userId], references: [id], onDelete: Cascade)
+
+  messages  message[] @relation("chatMessages")
+  createdAt DateTime  @default(now())
+}
+
+model message {
+  id        String   @id @default(uuid())
+
+  chatId    String
+  chat      chat     @relation("chatMessages", fields: [chatId], references: [id], onDelete: Cascade)
+  
+  content   String
+  createdAt DateTime @default(now())
+}
