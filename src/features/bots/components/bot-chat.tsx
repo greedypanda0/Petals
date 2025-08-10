@@ -48,7 +48,7 @@ export function UserChat({
       <div className="w-full px-6 pb-4">
         <div className="flex flex-row items-center gap-4">
           <Textarea
-            className="h-4 resize-none overflow-hidden text-sm py-2 px-3"
+            className="resize-none overflow-hidden text-sm py-2 px-3"
             placeholder="Say something..."
             rows={1}
           />

@@ -14,14 +14,14 @@ export async function Main({
 
   return (
     <div className="flex flex-col w-full h-full">
-      <div className="flex flex-col flex-1 overflow-y-auto justify-center items-center">
+      <div className="flex flex-col h-full w-full overflow-y-auto items-center">
         {headbar && (
-          <header className="flex h-16 items-center gap-2 px-4 max-w-5xl w-full">
-            <span className="font-semibold text-lg">Petals</span>
-          </header>
+          <div className="flex flex-none h-20 items-center gap-2 px-4 max-w-5xl w-full">
+            <span className="font-semibold text-2xl">Petals</span>
+          </div>
         )}
 
-        <main className="max-w-5xl w-full h-full">{children}</main>
+        <main className="flex-1 w-full">{children}</main>
       </div>
       {footer && <AppNavbar session={session} />}
     </div>

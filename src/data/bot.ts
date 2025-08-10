@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/prisma";
 
 export async function getBotsByUser(userId: string) {
@@ -39,6 +41,29 @@ export async function getBotsByUsername(name: string) {
     return [];
   }
 }
+
+export async function getBotsByName(name: string) {
+  try {
+    return prisma.bot.findMany({
+      where: {
+        name: {
+          contains: name,
+          mode: "insensitive",
+        },
+      },
+      include: {
+        user: {
+          select: {
+            name: true,
+          },
+        },
+      },
+    });
+  } catch {
+    return [];
+  }
+}
+
 export async function getBotByname(name: string) {
   try {
     return prisma.bot.findUnique({

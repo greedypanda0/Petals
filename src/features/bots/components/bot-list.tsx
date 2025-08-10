@@ -3,7 +3,7 @@ import BotCard from "./bot-card";
 import { Plus } from "lucide-react";
 import Link from "next/link";
 
-export async function BotList({
+export function BotList({
   bots,
   withAddButton = false,
 }: {
@@ -11,16 +11,16 @@ export async function BotList({
   withAddButton?: boolean;
 }) {
   return (
-    <div className="grid gap-4 justify-center [grid-template-columns:repeat(auto-fit,150px)] p-4">
+    <div className="grid gap-6 grid-cols-[repeat(auto-fit,minmax(250px,1fr))] p-4">
       {withAddButton && (
         <Link href="/bots/create">
-          <div className="w-[150px] h-[250px] rounded-md bg-card flex justify-center items-center">
-            <Plus />
+          <div className="h-32 rounded-lg border border-dashed border-muted-foreground flex justify-center items-center hover:bg-accent transition-colors">
+            <Plus className="w-6 h-6 text-muted-foreground" />
           </div>
         </Link>
       )}
-      {bots.map((item, key) => (
-        <BotCard bot={item} key={key} />
+      {bots.map((item) => (
+        <BotCard bot={item} key={item.name} />
       ))}
     </div>
   );
