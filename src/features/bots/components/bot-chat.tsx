@@ -1,9 +1,11 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { bot } from "@prisma/client";
-import { Send } from "lucide-react";
+import { ArrowLeft, Send } from "lucide-react";
 import { Session } from "next-auth";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export function UserChat({
   bot,
@@ -14,10 +16,13 @@ export function UserChat({
   session: Session;
   chatId: string;
 }) {
+  const router = useRouter();
+
   return (
     <div className="flex flex-col h-full">
       {/* Header */}
       <div className="w-full flex flex-row gap-3 h-20 items-center px-6">
+        <ArrowLeft onClick={() => router.back()} />
         <Image
           src={bot.image}
           alt="bot image"
@@ -26,7 +31,7 @@ export function UserChat({
           className="rounded-full"
         />
         <div className="flex flex-col">
-          <span className="text-md">{bot.name}</span>
+          <span className="text-md">{bot.username}</span>
           {bot.user.name && (
             <span className="text-sm text-muted-foreground">
               by @{bot.user.name}

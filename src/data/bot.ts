@@ -46,7 +46,7 @@ export async function getBotsByName(name: string) {
   try {
     return prisma.bot.findMany({
       where: {
-        name: {
+        username: {
           contains: name,
           mode: "insensitive",
         },

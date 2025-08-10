@@ -45,6 +45,7 @@ model account {
 model bot {
   id            String   @id @default(uuid())
   name          String   @unique
+  username      String?
   bio           String
   image         String
   createdAt     DateTime @default(now())

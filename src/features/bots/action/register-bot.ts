@@ -1,6 +1,7 @@
 "use server";
 
 import { prisma } from "@/lib/prisma";
+import { slugify } from "@/lib/utils";
 import { BotSchema } from "@/schema/bot";
 
 export async function registerBot(
@@ -10,9 +11,10 @@ export async function registerBot(
   error?: string;
 }> {
   try {
+    const slug = slugify(data.name);
     const existing = await prisma.bot.findUnique({
       where: {
-        name: data.name,
+        name: slug,
       },
     });
     if (existing) {
@@ -22,6 +24,8 @@ export async function registerBot(
     await prisma.bot.create({
       data: {
         ...data,
+        username: data.name,
+        name: slug,
       },
     });
     return { ok: true };

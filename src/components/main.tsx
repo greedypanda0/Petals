@@ -21,7 +21,7 @@ export async function Main({
           </div>
         )}
 
-        <main className="flex-1 w-full">{children}</main>
+        <main className="flex-1 w-full max-w-5xl">{children}</main>
       </div>
       {footer && <AppNavbar session={session} />}
     </div>

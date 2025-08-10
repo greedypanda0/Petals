@@ -14,13 +14,13 @@ export function Profile({ session }: { session: Session }) {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.4 }}
-      className="w-full h-full p-6"
+      className="w-full h-full p-6 flex flex-col items-center"
     >
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.3 }}
-        className="flex items-center gap-4 px-3"
+        className="flex flex-col items-center text-center gap-3"
       >
         <Image
           src={`${
@@ -31,19 +31,21 @@ export function Profile({ session }: { session: Session }) {
                 }`
           }`}
           alt={`${user?.name ?? "User"}'s profile picture`}
-          width={64}
-          height={64}
-          className="rounded-full border"
+          width={128}
+          height={128}
+          className="rounded-full border-4 border-primary shadow-lg"
         />
-        <div className="flex flex-col">
-          <span className="text-lg font-semibold">
+        <div className="flex flex-col gap-1">
+          <span className="text-2xl font-bold">
             {unslugify(user?.name ?? "Anonymous")}
           </span>
           <span className="text-sm text-muted-foreground">{user?.email}</span>
         </div>
       </motion.div>
 
-      <ProfileSections user={user} />
+      <div className="mt-8 w-full max-w-3xl">
+        <ProfileSections user={user} />
+      </div>
     </motion.div>
   );
 }

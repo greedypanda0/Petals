@@ -45,7 +45,7 @@ export async function generateUniqueUsername(base: string): Promise<string> {
 }
 
 export function slugify(str: string) {
-  return str.trim().replace(/\s+/g, "-");
+  return str.toLowerCase().trim().replace(/\s+/g, "-");
 }
 
 export function unslugify(str: string) {

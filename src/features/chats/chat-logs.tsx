@@ -6,7 +6,7 @@ import Image from "next/image";
 export function ChatLogs({
   chats,
 }: {
-  chats: (chat & { bot: { image: string; name: string } })[];
+  chats: (chat & { bot: { image: string; name: string; username: string } })[];
 }) {
   return (
     <div className="flex flex-col w-full">
@@ -24,7 +24,7 @@ export function ChatLogs({
           />
 
           <div className="flex flex-col overflow-hidden">
-            <span className="font-medium truncate">{item.bot.name}</span>
+            <span className="font-medium truncate">{item.bot.username}</span>
             <span className="text-sm text-muted-foreground">
               {new Date(item.createdAt).toLocaleString()}
             </span>

@@ -38,6 +38,7 @@ export async function getChatsByUserId(userId: string) {
           select: {
             name: true,
             image: true,
+            username: true
           },
         },
       },

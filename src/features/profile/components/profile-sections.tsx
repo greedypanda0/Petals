@@ -33,7 +33,7 @@ export function ProfileSections({ user }: { user?: User }) {
               href={
                 item.href === "/bots/u/" ? `/bots/u/${user?.name}` : item.href
               }
-              className="flex items-center gap-3 rounded-md px-3 py-2 text-sm text-foreground hover:bg-muted transition-colors"
+              className="flex items-center gap-3 rounded-md px-3 py-2 text-md text-foreground hover:bg-muted transition-colors"
             >
               {<item.icon className="text-muted-foreground" />}
               <span>{item.label}</span>
